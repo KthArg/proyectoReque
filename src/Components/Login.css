@@ -1,0 +1,106 @@
+/* src/Login.css */
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.login-container {
+  height: 100vh; /* altura total ventana */
+  width: 100vw;  /* ancho total ventana */
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  align-items: center;     /* centra vertical */
+  background-color: #1e293b; /* fondo oscuro */
+  box-sizing: border-box;
+}
+
+.login-form {
+  background-color: #f8fafc; /* fondo claro */
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  color: #1e293b;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+.login-form h2 {
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 28px;
+  color: #0f172a;
+}
+
+.login-form label {
+  margin-bottom: 18px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #334155;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input {
+  margin-top: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #f1f5f9;
+  color: #0f172a;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #fff;
+}
+
+.login-form button {
+  margin-top: 25px;
+  padding: 12px;
+  font-size: 17px;
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: #2563eb;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.register-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  background-color: #10b981; /* verde */
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #059669;
+}

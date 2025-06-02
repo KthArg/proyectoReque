@@ -1,0 +1,12 @@
+.home-title {
+    /* Contenedor a pantalla completa */
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  
+    /* Centrado de su contenido (h1, botones, marco) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
