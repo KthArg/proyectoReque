@@ -1,0 +1,65 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import IdeasGallery from "../../components/react/IdeasGallery.jsx";
+---
+
+<Layout title="Galería de Ideas">
+  <main class="container">
+    <h1>Ideas de la Comunidad</h1>
+    <p>
+      Descubre las formas creativas en que nuestra comunidad reutiliza objetos
+      del día a día.
+    </p>
+
+    <!-- Renderizamos el componente de React. Usamos 'client:load' porque
+         necesita acceder a localStorage inmediatamente. -->
+    <IdeasGallery client:load />
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  .container p {
+    max-width: 700px;
+    margin: 0 auto 3rem auto;
+    font-size: 1.1rem;
+  }
+
+  /* Estilos para el componente de React */
+  .ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    text-align: left;
+  }
+  .idea-card {
+    background-color: var(--color-surface);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #444;
+    display: flex;
+    flex-direction: column;
+  }
+  .idea-card h2 {
+    font-size: 1.5rem;
+    color: var(--color-heading);
+  }
+  .idea-description {
+    flex-grow: 1; /* Hace que la descripción ocupe el espacio disponible */
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .idea-meta {
+    border-top: 1px solid #444;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+</style>

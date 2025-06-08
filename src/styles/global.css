@@ -1,0 +1,81 @@
+/* 1. Definición de variables y reseteo básico */
+:root {
+    --color-primary: #2a9d8f;
+    /* Un verde azulado ecológico */
+    --color-secondary: #e9c46a;
+    /* Un acento cálido como el sol */
+    --color-dark: #264653;
+    /* Texto principal oscuro */
+    --color-light: #f4a261;
+    /* Un tono claro y amigable */
+    --color-bg: #f7f9f9;
+    /* Un fondo casi blanco, muy suave */
+    --color-white: #ffffff;
+    --font-sans: "Inter", sans-serif;
+    --font-serif: "Lora", serif;
+    --border-radius: 8px;
+}
+
+/* Reseteo simple para consistencia */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 2. Estilos base para todo el sitio */
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-dark);
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-serif);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--color-light);
+}
+
+/* 3. Estilos para elementos comunes (botones, etc.) */
+button,
+.button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover,
+.button:hover {
+    background-color: #217c70;
+    /* Un tono más oscuro del primario */
+}

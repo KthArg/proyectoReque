@@ -1,0 +1,126 @@
+---
+// 1. Importaciones necesarias
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+// Se añade la importación del componente de comentarios
+import CommentsSection from "../../components/react/CommentsSection.jsx";
+
+// 2. Definimos el tipo de los props para TypeScript
+type Props = CollectionEntry<"materials">;
+
+// 3. Generamos las rutas estáticas para cada material
+export async function getStaticPaths() {
+  const materials = await getCollection("materials");
+  return materials.map((material) => ({
+    params: { slug: material.slug },
+    props: material,
+  }));
+}
+
+// 4. Obtenemos los datos del material actual y renderizamos su contenido Markdown
+const material = Astro.props;
+const { Content } = await material.render();
+---
+
+<!-- 5. Usamos nuestro layout principal -->
+<Layout title={material.data.title}>
+  <main class="container">
+    <article>
+      <!-- Título del material -->
+      <h1>{material.data.title}</h1>
+
+      <!-- Imagen principal (si existe) -->
+      {
+        material.data.image && (
+          <img
+            class="main-image"
+            src={material.data.image}
+            alt={`Imagen ilustrativa de ${material.data.title}`}
+          />
+        )
+      }
+
+      <!-- Descripción corta -->
+      <p class="description"><em>{material.data.description}</em></p>
+      <hr />
+
+      <!-- Contenido principal del archivo Markdown -->
+      <div class="content">
+        <Content />
+      </div>
+    </article>
+
+    <!-- 6. Separador visual antes de la sección de comentarios -->
+    <hr class="section-divider" />
+
+    <!-- 7. La "isla" de React para los comentarios.
+         - 'client:visible' hace que el componente se cargue solo cuando el usuario se desplaza hasta él.
+         - Le pasamos el 'slug' del material para que sepa qué comentarios cargar. -->
+    <CommentsSection client:visible materialSlug={material.slug} />
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .main-image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+  }
+  .description {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    opacity: 0.9;
+  }
+  .content {
+    line-height: 1.7;
+    font-size: 1.1rem;
+  }
+  .content h3 {
+    margin-top: 2rem;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 0.5rem;
+  }
+  .section-divider {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    border: 0;
+    border-top: 1px solid #444; /* Color de borde para tema oscuro */
+  }
+
+  /* Estilos para la sección de comentarios (que es un componente de React) */
+  .comments-section {
+    margin-top: 2rem;
+  }
+  .comments-list {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .comment {
+    background-color: var(
+      --color-surface
+    ); /* Color de superficie para tarjetas */
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #444;
+  }
+  .comment strong {
+    color: var(--color-heading); /* Color de título para el autor */
+  }
+  .comment small {
+    margin-left: 0.5rem;
+    color: #888;
+    font-size: 0.8rem;
+  }
+  .comment p {
+    margin-top: 0.5rem;
+    color: var(--color-text); /* Color de texto principal */
+  }
+</style>
