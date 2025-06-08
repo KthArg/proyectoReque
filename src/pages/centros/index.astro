@@ -1,0 +1,57 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const allCenters = await getCollection("centers");
+---
+
+<Layout title="Centros de Acopio">
+  <main class="container">
+    <h1>Encuentra un Centro de Acopio</h1>
+    <div class="centers-grid">
+      {
+        allCenters.map((center) => (
+          <div class="center-card">
+            <h2>{center.data.name}</h2>
+            <p><strong>Dirección:</strong> {center.data.address}</p>
+            <p><strong>Horario:</strong> {center.data.hours}</p>
+            <h3>Materiales Aceptados:</h3>
+            <ul>
+              {center.data.acceptedMaterials.map((material) => (
+                <li>{material}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .centers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+  .center-card {
+    background: var(--color-white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  .center-card h3 {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .center-card ul {
+    list-style-position: inside;
+    padding-left: 0;
+  }
+</style>

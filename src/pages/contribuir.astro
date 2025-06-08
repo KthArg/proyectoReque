@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContributionForm from "../components/react/ContributionForm.jsx";
+import AuthGuard from "../components/react/AuthGuard.jsx";
+---
+
+<Layout title="Comparte tu Idea">
+  <!-- El AuthGuard protege todo el contenido de esta página -->
+  <AuthGuard client:load>
+    <main>
+      <h2 style="text-align: center; margin-top: 2rem;">
+        Comparte tu Creatividad con el Mundo
+      </h2>
+      <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem;">
+        ¿Tienes una idea genial para reutilizar un objeto? ¡Compártela con la
+        comunidad de EcoConecta!
+      </p>
+      <ContributionForm client:load />
+    </main>
+  </AuthGuard>
+</Layout>

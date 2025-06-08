@@ -1,0 +1,115 @@
+---
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/lora/700.css";
+import "../styles/global.css";
+import Header from "../components/react/Header.jsx";
+import { Toaster } from "react-hot-toast"; // Importa el Toaster
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Prototipo del proyecto EcoConecta" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | EcoConecta</title>
+  </head>
+  <body>
+    <!-- El Toaster se coloca aquí para estar disponible en toda la app -->
+    <Toaster
+      position="bottom-center"
+      toastOptions={{
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+      }}
+    />
+    <Header client:load />
+    <slot />
+    <footer>
+      <p>
+        &copy; {new Date().getFullYear()} EcoConecta. Todos los derechos
+        reservados.
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  /* Estilos para el footer */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    color: #888;
+    background-color: var(--color-surface);
+  }
+
+  /* --- ESTILOS CORREGIDOS PARA EL HEADER --- */
+  header {
+    background-color: var(--color-surface);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #444;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-heading);
+    margin-right: 2rem; /* Añade espacio a la derecha del logo */
+  }
+
+  /* Contenedor para los enlaces de navegación principales */
+  .nav-menu {
+    flex-grow: 1; /* Hace que este contenedor ocupe el espacio sobrante */
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-menu a {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  /* Contenedor para los botones de autenticación */
+  .auth-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .auth-links span {
+    font-weight: bold;
+    color: var(--color-heading);
+  }
+
+  .logout-button {
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 0.5rem 1rem;
+  }
+
+  .logout-button:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+</style>
