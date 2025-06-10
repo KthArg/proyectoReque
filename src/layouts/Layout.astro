@@ -1,11 +1,15 @@
 ---
+// 1. Importaciones de Fuentes y Estilos
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/700.css";
 import "@fontsource/lora/700.css";
 import "../styles/global.css";
-import Header from "../components/react/Header.jsx";
-import { Toaster } from "react-hot-toast"; // Importa el Toaster
 
+// 2. Importaciones de Componentes de React
+import Header from "../components/react/Header.jsx";
+import { Toaster } from "react-hot-toast";
+
+// 3. Definición de Props para el Layout
 interface Props {
   title: string;
 }
@@ -21,9 +25,38 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} | EcoConecta</title>
+
+    <!-- 4. SCRIPT ANTI-FLASH PARA EL MODO OSCURO -->
+    <!-- Este script se ejecuta antes de que se renderice el resto de la página
+         para evitar el "flash" de un tema incorrecto al cargar. -->
+    <script is:inline>
+      const theme = (() => {
+        // Primero, revisa si hay un tema guardado explícitamente en localStorage
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        // Si no, revisa si el sistema operativo del usuario prefiere el modo oscuro
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        // Por defecto, usa el modo claro
+        return "light";
+      })();
+
+      // Aplica la clase 'dark' a la etiqueta <html> si es necesario
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
   </head>
   <body>
-    <!-- El Toaster se coloca aquí para estar disponible en toda la app -->
+    <!-- 5. Contenedor de Notificaciones "Toast" -->
+    <!-- Se coloca aquí para estar disponible en toda la aplicación. -->
     <Toaster
       position="bottom-center"
       toastOptions={{
@@ -33,17 +66,26 @@ const { title } = Astro.props;
         },
       }}
     />
+
+    <!-- 6. Header Dinámico de React -->
+    <!-- 'client:load' asegura que sea interactivo inmediatamente. -->
     <Header client:load />
+
+    <!-- 7. Contenido Principal de la Página -->
+    <!-- El <slot /> es donde Astro inyectará el contenido de cada página. -->
     <slot />
+
+    <!-- 8. Footer Estático -->
     <footer>
       <p>
-        &copy; {new Date().getFullYear()} EcoConecta. Todos los derechos
+        &copy; {new Date().getFullYear()} TECciclaje. Todos los derechos
         reservados.
       </p>
     </footer>
   </body>
 </html>
 
+<!-- 9. Estilos Globales para el Layout -->
 <style is:global>
   /* Estilos para el footer */
   footer {
@@ -52,13 +94,14 @@ const { title } = Astro.props;
     margin-top: 4rem;
     color: #888;
     background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
   }
 
-  /* --- ESTILOS CORREGIDOS PARA EL HEADER --- */
+  /* Estilos para el header */
   header {
     background-color: var(--color-surface);
     padding: 1rem 2rem;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--color-border);
   }
 
   nav {
@@ -74,22 +117,29 @@ const { title } = Astro.props;
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-heading);
-    margin-right: 2rem; /* Añade espacio a la derecha del logo */
+    margin-right: 2rem;
   }
 
-  /* Contenedor para los enlaces de navegación principales */
   .nav-menu {
-    flex-grow: 1; /* Hace que este contenedor ocupe el espacio sobrante */
+    flex-grow: 1;
     display: flex;
     gap: 1.5rem;
   }
 
-  .nav-menu a {
+  /* --- CORRECCIÓN DE ACENTUACIÓN --- */
+  .nav-menu a,
+  .auth-links a:not(.button) {
     color: var(--color-text);
     font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  /* Al pasar el ratón, los enlaces se ponen verdes */
+  .nav-menu a:hover,
+  .auth-links a:not(.button):hover {
+    color: var(--color-primary);
   }
 
-  /* Contenedor para los botones de autenticación */
   .auth-links {
     display: flex;
     align-items: center;
@@ -101,15 +151,30 @@ const { title } = Astro.props;
     color: var(--color-heading);
   }
 
+  /* El botón de salir ahora usa el color primario */
   .logout-button {
     background-color: transparent;
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
-    padding: 0.5rem 1rem;
   }
 
   .logout-button:hover {
     background-color: var(--color-primary);
     color: var(--color-white);
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .theme-toggle:hover {
+    background-color: rgba(128, 128, 128, 0.2);
   }
 </style>

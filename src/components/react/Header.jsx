@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "../../hooks/useAuth";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const { session, logout } = useAuth();
@@ -8,7 +9,7 @@ export default function Header() {
     <header>
       <nav>
         <a href="/" className="logo">
-          EcoConecta ♻️
+          TECciclaje ♻️
         </a>
 
         {/* Agrupamos todos los enlaces en un solo contenedor para un mejor control */}
@@ -35,6 +36,7 @@ export default function Header() {
               </a>
             </>
           )}
+          <ThemeToggle />
         </div>
       </nav>
     </header>

@@ -1,52 +1,51 @@
 /* 1. Definición de variables y reseteo básico */
 :root {
-    --color-primary: #2a9d8f;
-    /* Un verde azulado ecológico */
-    --color-secondary: #e9c46a;
-    /* Un acento cálido como el sol */
-    --color-dark: #264653;
-    /* Texto principal oscuro */
-    --color-light: #f4a261;
-    /* Un tono claro y amigable */
-    --color-bg: #f7f9f9;
-    /* Un fondo casi blanco, muy suave */
-    --color-white: #ffffff;
-    --font-sans: "Inter", sans-serif;
-    --font-serif: "Lora", serif;
-    --border-radius: 8px;
+  --color-primary: #2a9d8f;
+  --color-secondary: #e9c46a;
+  --color-text: #264653; /* Texto oscuro */
+  --color-heading: #1a3a45; /* Títulos más oscuros */
+  --color-bg: #f7f9f9; /* Fondo casi blanco */
+  --color-surface: #ffffff; /* Fondo para tarjetas y headers */
+  --color-border: #e0e0e0; /* Bordes claros */
+  --color-white: #ffffff;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Lora", serif;
+  --border-radius: 8px;
 }
 
-/* Reseteo simple para consistencia */
+/* 2. Paleta de colores para el MODO OSCURO */
+html.dark {
+  --color-text: #e0e0e0;
+  --color-heading: #ffffff;
+  --color-bg: #1e2022;
+  --color-surface: #2c2f33;
+  --color-border: #444;
+}
+
+/* 3. Estilos base que usan las variables */
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* 2. Estilos base para todo el sitio */
 body {
-    font-family: var(--font-sans);
-    background-color: var(--color-bg);
-    color: var(--color-dark);
-    line-height: 1.6;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 h1,
 h2,
 h3 {
-    font-family: var(--font-serif);
-    line-height: 1.2;
-    margin-bottom: 1rem;
-}
-
-h1 {
-    font-size: 2.5rem;
-}
-
-h2 {
-    font-size: 2rem;
+  font-family: var(--font-serif);
+  color: var(--color-heading);
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 a {

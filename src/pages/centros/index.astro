@@ -39,19 +39,33 @@ const allCenters = await getCollection("centers");
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 2rem;
   }
+  /* --- CORRECCIÓN --- */
   .center-card {
-    background: var(--color-white);
+    background: var(--color-surface); /* Usa el color de superficie del tema */
     padding: 1.5rem;
     border-radius: var(--border-radius);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--color-border); /* Usa el color de borde del tema */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .center-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  .center-card h2 {
+    color: var(--color-heading);
+  }
+  .center-card p {
+    color: var(--color-text);
   }
   .center-card h3 {
     font-size: 1.1rem;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    color: var(--color-heading);
   }
   .center-card ul {
     list-style-position: inside;
     padding-left: 0;
+    color: var(--color-text);
   }
 </style>

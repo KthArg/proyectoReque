@@ -26,13 +26,41 @@ const allMaterials = await getCollection("materials");
     justify-content: center;
     text-align: center;
     padding: 6rem 2rem;
-    background-color: #e8f5e9; /* Un verde muy pálido */
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    position: relative; /* Necesario para el pseudo-elemento */
+    overflow: hidden; /* Evita que la ola se salga */
   }
+
+  /* --- DETALLE DE ACENTO VERDE --- */
+  .hero::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* Altura de la ola */
+    background-color: var(--color-primary);
+    opacity: 0.1; /* Hacemos que sea muy sutil */
+    clip-path: polygon(
+      0 100%,
+      100% 100%,
+      100% 20%,
+      0 80%
+    ); /* Forma de ola diagonal */
+    z-index: 0;
+  }
+  /* --- FIN DEL DETALLE --- */
+
   .hero-content {
     max-width: 700px;
+    position: relative; /* Asegura que el contenido esté por encima de la ola */
+    z-index: 1;
   }
+
   .hero p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
+    color: var(--color-text);
   }
 </style>
